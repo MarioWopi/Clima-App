@@ -7,15 +7,19 @@ function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 425,
-    height: 512,
+    height: 550,
     show: false,
-    resizable: false,
-    autoHideMenuBar: true,
+    resizable: false, // Evita que la ventana sea redimensionable
+    autoHideMenuBar: true, // Oculta la barra de menú
+    titleBarStyle: 'hidden', // Oculta la barra de título, (esto me permite usar el drag en CSS)
+    transparent: true, // Hace que la ventana sea transparente
+    roundedCorners: true, // Habilita las esquinas redondeadas
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
     }
+
   })
 
   mainWindow.on('ready-to-show', () => {
@@ -44,9 +48,7 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  ipcMain.on('ping', () => console.log('pong'))
-
-  createWindow()  
+  createWindow()
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -57,4 +59,23 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+
+ipcMain.on('accion', (event, accion) => {
+
+  console.log("accion = " + accion);
+
+  const window = BrowserWindow.getFocusedWindow();
+
+  switch (accion) {
+    case 'cerrar-ventana':
+      if (window) window.close(); // cierra la ventana enfocada
+      break;
+    case 'minimizar-ventana':
+      if (window) window.minimize(); // minimiza la ventana enfocada
+      break;
+    default:
+      break;
+  }
+
 })

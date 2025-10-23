@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Gochi+Hand&display=swap');
 @import "tailwindcss";
 
-h1{
-  font-family: 'Gochi Hand','Caveat'; 
+body {
+  font-family: 'Gochi Hand', 'Caveat';
+
 }
 
 html,
@@ -11,8 +12,19 @@ body {
   width: 100%;
   overflow-y: hidden;
   overflow-x: hidden;
- 
+  border-radius: 12px;
 }
+
+
+.on-drag {
+  -webkit-app-region: drag;
+}
+
+/* Hago el no drag porque me deshabilita las funciones de hover y click */
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+
 
 .dia {
   background: linear-gradient(to bottom, #54bde7, #f4e75d 80%, #0ac60dc4 85%);
@@ -30,24 +42,17 @@ body {
   position: absolute;
   top: -10%;
   left: -10%;
-  background: radial-gradient(#fff9c4, #fff176, #fbc02d);
   width: 150px;
   height: 150px;
   border-radius: 100%;
-  border: 2px solid #f7e30e;
-  box-shadow: 0px 0px 30px 2px #f4e75d;
 }
 
 .luna {
   position: absolute;
   top: -8%;
   left: 75%;
-  background: radial-gradient(#f0eaea 0%, #c0c0c0 60%, #707070 100%);
   width: 150px;
   height: 150px;
-  border: 2px solid #b0b8bb7e;
   border-radius: 100%;
-  box-shadow: 0px 0px 20px 1px #909597;
 
 }
-
