@@ -48,7 +48,7 @@ function Fondo() {
                     ],
                 }}
                 transition={{
-                    duration: 60,  // Duración total de la animación
+                    duration: 540,  // Duración total de la animación
                     repeat: Infinity,  // Repetir infinitamente
                     ease: 'linear',  // Tipo de interpolación suave
                 }}

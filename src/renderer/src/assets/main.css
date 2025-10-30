@@ -3,10 +3,9 @@
 
 body {
   font-family: 'Gochi Hand', 'Caveat';
-  border: black solid 3px;
+  border: black solid 1px;
   position: relative; /* Para aplicar el z-index */
   z-index: 2; /* Para que el sol no se superponga*/
-
 }
 
 html,
