@@ -10,6 +10,7 @@ function createWindow() {
     height: 550,
     show: false,
     resizable: false, // Evita que la ventana sea redimensionable
+    alwaysOnTop: true, // Para que siempre esté en la pantalla, osea anclar la ventana
     autoHideMenuBar: true, // Oculta la barra de menú
     titleBarStyle: 'hidden', // Oculta la barra de título, (esto me permite usar el drag en CSS)
     transparent: true, // Hace que la ventana sea transparente

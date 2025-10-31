@@ -1,5 +1,6 @@
 import { motion } from "motion/react"
 import { useEffect, useState } from "react";
+import usagi from "../assets/usagi.png";
 
 function Card() {
     // o también se puede hacer así now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -27,11 +28,11 @@ function Card() {
 
             {/* <h1 className='text-center mt-5 text-[30px] font-bold bg-clip-tex text-[#e9642a] drop-shadow-amber-100 text-shadow-lg text-shadow-[#440a0aa5]' >Hoy está Soleado!</h1> */}
             {/* h-full w-full*/}
-            <div className=" w-[300px] h-[230px] bg-linear-to-b from-[rgba(126,206,255,0.61)] to-[rgba(255,255,255,0.52)] rounded-xl backdrop-blur-sm border border-[#261D1D]/14 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] text-[#292928] py-5 px-4 flex flex-col">
+            <div className="items-center w-[300px] h-fit bg-linear-to-b from-[rgba(126,206,255,0.61)] to-[rgba(255,255,255,0.52)] rounded-xl backdrop-blur-sm border border-[#261D1D]/14 drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] text-[#292928] py-5 px-4 flex flex-col">
 
                 { /* Hora  */}
-                <div className="flex justify-center w-full text-[#242425]">
-                    {hora}
+                <div className="flex justify-center w-30 py-1 text-[#242425] bg-[#fcfcfcaf] drop-shadow-[1px_2px_1px_rgba(0,0,0,0.25)] border-3 border-black/50 rounded-2xl ">
+                    <p className="font-semibold text-[rgb(78,78,78)]">{hora}</p>
                 </div>
 
                 { /* Puntos para añadir nuevos paises  */}
@@ -56,17 +57,33 @@ function Card() {
                     </div>
 
                     {/* Imagen de Clima */}
-                    <div className="size-23 bg-white/20 rounded flex items-center justify-center">
-                        Imagen
-                    </div>
+
+                    <img className="size-23" src={usagi} alt="_" />
+
 
                 </div>
 
                 {/* Botones */}
-                <div className="mt-4 flex justify-center gap-2">
-                    <button className="bg-white/20 px-3 py-1 rounded">Viento</button>
-                    <button className="bg-white/20 px-3 py-1 rounded">UV</button>
-                    <button className="bg-white/20 px-3 py-1 rounded">Humedad</button>
+                <div className="mt-4 grid grid-cols-2 justify-center gap-2" >
+
+                    <button className="bg-white/20 px-3 py-1 rounded flex content-center items-center">
+                        <img className="size-10 mr-2" src={usagi} alt="" />
+                        <p className="w-full">Viento</p>
+                    </button>
+                    <button className="bg-white/20 px-3 py-1 rounded flex items-center">
+                        <img className="size-10 mr-2" src={usagi} alt="" />
+                        <p className="w-full">UV</p>
+                    </button>
+                    <button className="bg-white/20 px-3 py-1 rounded flex items-center">
+                        <img className="size-10 mr-2" src={usagi} alt="" />
+                        <p className="w-full">Humedad</p>
+                    </button>
+                    <button className="bg-white/20 px-3 py-1 rounded flex items-center">
+                        <img className="size-10 mr-2" src={usagi} alt="" />
+                        <p className="w-full">Sensación térmica</p>
+                    </button>
+
+
                 </div>
             </div>
 
