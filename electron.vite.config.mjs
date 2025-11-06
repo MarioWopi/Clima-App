@@ -5,17 +5,28 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   main: {
-    plugins: [externalizeDepsPlugin()]
+    plugins: [externalizeDepsPlugin()],
   },
   preload: {
-    plugins: [externalizeDepsPlugin()]
+    plugins: [externalizeDepsPlugin()],
   },
   renderer: {
+    plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
-        '@renderer': resolve('src/renderer/src')
-      }
+        '@renderer': resolve('src/renderer/src'),
+      },
     },
-    plugins: [react(), tailwindcss()]
-  }
+
+    // 👇 Aquí definimos la carpeta pública
+    publicDir: 'src/renderer/public',
+
+    // 👇 Base relativa para que funcione en `file://` en producción
+    base: './',
+
+    build: {
+      outDir: 'dist/renderer',
+      emptyOutDir: true,
+    },
+  },
 })

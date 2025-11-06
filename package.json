@@ -51,7 +51,7 @@
     },
     "nsis": {
       "artifactName": "${productName}.exe",
-      "perMachine": false,
+      "oneClick": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
     }

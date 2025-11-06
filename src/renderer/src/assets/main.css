@@ -4,8 +4,10 @@
 body {
   font-family: 'Gochi Hand', 'Caveat';
   border: black solid 1px;
-  position: relative; /* Para aplicar el z-index */
-  z-index: 2; /* Para que el sol no se superponga*/
+  position: relative;
+  /* Para aplicar el z-index */
+  z-index: 2;
+  /* Para que el sol no se superponga*/
 }
 
 html,
@@ -47,4 +49,31 @@ body {
   width: 150px;
   height: 150px;
   border-radius: 100%;
+}
+
+#cruz {
+  position: relative;
+  width: 25px;
+  height: 2px;
+  background-color: #cecece;
+
+}
+
+#cruz::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 25px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #cecece;
+
+}
+
+.circle-background {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(41, 41, 41, 0.3);
+  border-radius: 50%;
 }
