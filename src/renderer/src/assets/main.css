@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Gochi+Hand&display=swap');
 @import "tailwindcss";
+@import '@splidejs/react-splide/css';
 
 body {
   font-family: 'Gochi Hand', 'Caveat';
@@ -38,6 +39,12 @@ body {
 
 .noche {
   background: linear-gradient(to bottom, #3f4548 20%, #ababa4 80%, #0ac60d 85%);
+  height: 100vh;
+  width: 100vw;
+}
+
+.atardecer {
+  background: linear-gradient(to bottom, #f66f00 20%, #f8ff28 80%, #0ac60d 85%);
   height: 100vh;
   width: 100vw;
 }

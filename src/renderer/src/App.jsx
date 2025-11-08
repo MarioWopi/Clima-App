@@ -1,7 +1,6 @@
-import Versions from './components/Versions'
 import './assets/main.css'
 
-import Fondo from './components/Fondo'
+import Fondo from './components/PantallaPrincipal'
 
 function App() {
   const ipcHandle = () => window.electron.ipcRenderer.send('ping')
@@ -16,6 +15,7 @@ function App() {
         <li onClick={minimizarVentana} className='text-gray-200 px-3 p-1 rounded list-none hover:text-gray-500 hover:cursor-pointer no-drag font-extrabold'>-</li>
         <li onClick={cerrarVentana} className='text-gray-200 px-3 p-1 rounded list-none mr-3 hover:cursor-pointer hover:text-red-500 no-drag font-bold'>X</li>
       </div>
+      
       <Fondo ></Fondo>
     </>
   )

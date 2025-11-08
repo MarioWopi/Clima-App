@@ -1,11 +1,13 @@
 import { motion } from 'motion/react'
 import Card from './Card';
 
-function Fondo() {
+
+function PantallaPrincipal() {
 
     return (
-
-        <div className="dia z-0" >
+        //Fondo
+        <div className="atardecer z-0" >
+            {/* Cuerpo Celeste del fondo*/}
             <motion.div className='cuerpo-celeste z-0'
                 animate={{ // Animacion del sol a luna y viceversa
                     y: [220, 200, 150, 140, 140, 150, 200, 220],
@@ -50,11 +52,12 @@ function Fondo() {
                 transition={{
                     duration: 540,  // Duración total de la animación
                     repeat: Infinity,  // Repetir infinitamente
-                    ease: 'linear',  
+                    ease: 'linear',
                 }}
             >
-
             </motion.div>
+
+            {/* Carta con la información del clima */}
             <Card></Card>
 
 
@@ -64,4 +67,4 @@ function Fondo() {
 
 }
 
-export default Fondo;
+export default PantallaPrincipal;
