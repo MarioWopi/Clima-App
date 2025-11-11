@@ -1,6 +1,7 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './assets/main.css'
-
-import Fondo from './components/PantallaPrincipal'
+import PantallaPrincipal from './components/PantallaPrincipal'
+import AnadirCiudad from './components/AnadirCiudad'
 
 function App() {
   const ipcHandle = () => window.electron.ipcRenderer.send('ping')
@@ -15,8 +16,14 @@ function App() {
         <li onClick={minimizarVentana} className='text-gray-200 px-3 p-1 rounded list-none hover:text-gray-500 hover:cursor-pointer no-drag font-extrabold'>-</li>
         <li onClick={cerrarVentana} className='text-gray-200 px-3 p-1 rounded list-none mr-3 hover:cursor-pointer hover:text-red-500 no-drag font-bold'>X</li>
       </div>
-      
-      <Fondo ></Fondo>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<PantallaPrincipal />} />
+
+          <Route path='anadirCiudad' element={<AnadirCiudad />} />
+
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

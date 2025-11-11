@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Gochi+Hand&display=swap');
 @import "tailwindcss";
 @import '@splidejs/react-splide/css';
+@import 'flowbite';
+
 
 body {
   font-family: 'Gochi Hand', 'Caveat';
@@ -83,4 +85,8 @@ body {
   height: 40px;
   background-color: rgba(41, 41, 41, 0.3);
   border-radius: 50%;
+}
+
+.card {
+  @apply bg-linear-to-b from-[rgba(126,206,255,0.61)] to-[rgba(255,255,255,0.52)] rounded-xl backdrop-blur-sm border border-[#261D1D]/14 text-[#292928];
 }

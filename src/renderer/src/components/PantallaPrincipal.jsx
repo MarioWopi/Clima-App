@@ -6,7 +6,7 @@ function PantallaPrincipal() {
 
     return (
         //Fondo
-        <div className="atardecer z-0" >
+        <div className="dia z-0" >
             {/* Cuerpo Celeste del fondo*/}
             <motion.div className='cuerpo-celeste z-0'
                 animate={{ // Animacion del sol a luna y viceversa
