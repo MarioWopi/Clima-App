@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Gochi+Hand&display=swap');
+@import "tailwindcss";
+@import '@splidejs/react-splide/css';
+@import 'flowbite';
+
+
+body {
+  font-family: 'Gochi Hand', 'Caveat';
+  border: black solid 1px;
+  position: relative;
+  /* Para aplicar el z-index */
+  z-index: 2;
+  /* Para que el sol no se superponga*/
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  border-radius: 12px;
+}
+
+
+.on-drag {
+  -webkit-app-region: drag;
+}
+
+/* Hago el no drag porque me deshabilita las funciones de hover y click */
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+
+
+.dia {
+  background: linear-gradient(to bottom, #54bde7, #f4e75d 80%, #0ac60d 85%);
+  height: 100vh;
+  width: 100vw;
+}
+
+.noche {
+  background: linear-gradient(to bottom, #3f4548 20%, #ababa4 80%, #0ac60d 85%);
+  height: 100vh;
+  width: 100vw;
+}
+
+.atardecer {
+  background: linear-gradient(to bottom, #f66f00 20%, #f8ff28 80%, #0ac60d 85%);
+  height: 100vh;
+  width: 100vw;
+}
+
+.cuerpo-celeste {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+}
+
+#cruz {
+  position: relative;
+  width: 25px;
+  height: 2px;
+  background-color: #cecece;
+
+}
+
+#cruz::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 25px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #cecece;
+
+}
+
+.circle-background {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(41, 41, 41, 0.3);
+  border-radius: 50%;
+}
+
+.card {
+  @apply bg-linear-to-b from-[rgba(126,206,255,0.61)] to-[rgba(255,255,255,0.52)] rounded-xl backdrop-blur-sm border border-[#261D1D]/14 text-[#292928];
+}
+
+ul::-webkit-scrollbar {
+  display: none; 
+}
