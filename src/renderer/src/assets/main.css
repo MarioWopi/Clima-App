@@ -90,3 +90,7 @@ body {
 .card {
   @apply bg-linear-to-b from-[rgba(126,206,255,0.61)] to-[rgba(255,255,255,0.52)] rounded-xl backdrop-blur-sm border border-[#261D1D]/14 text-[#292928];
 }
+
+ul::-webkit-scrollbar {
+  display: none; 
+}
