@@ -44,7 +44,7 @@ export default function useClima(arrayCiudades) {
         cargarClimas();
     }, [arrayCiudades]);
 
-    console.log(estadoGeoAtmosferico)
+
     return estadoGeoAtmosferico;
 
 }

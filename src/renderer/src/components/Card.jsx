@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import BotonesClima from "./BotonesClima";
 import InformacionClima from "./InformacionClima";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
@@ -13,12 +13,35 @@ function Card({ ciudadesActuales }) {
     const datosClima = useClima(ciudadesActuales);
     const ciudadesValidas = datosClima.filter(c => !c.error)
     const ciudadesNoValidas = datosClima.filter(c => c.error)
-    console.log("Array Ciudades ->" + JSON.stringify(datosClima)) //Arreglar porque se me ejecuta infinitamente
+    // console.log("Array Ciudades ->" + JSON.stringify(datosClima)) //Arreglar porque se me ejecuta infinitamente
     const totalPagination = Math.min(ciudadesValidas.length, 3)
 
+    const carruselRef = useRef(null);
+    const [activeSlide, setActiveSlide] = useState(0);
+
+
+    const goTo = (index) => carruselRef.current?.splide.go(index);
 
     const anadirCiudad = () => {
         navigate("anadirCiudad");
+    }
+
+    const iconoClima = {
+        "Thunderstorm": "thunderstorm",
+        "Drizzle": "rain",
+        "Rain": "rain",
+        "Snow": "snow",
+        "Mist": "fog",
+        "Smoke": "fog",
+        "Haze": "fog",
+        "Dust": "fog",
+        "Fog": "fog",
+        "Sand": "fog",
+        "Ash": "fog",
+        "Squall": "rain",
+        "Tornado": "rain",
+        "Clear": "sun",
+        "Clouds": "cloudy",
     }
 
     //Muestra una card de error, si la api de weather da algun tipo de error
@@ -73,17 +96,19 @@ function Card({ ciudadesActuales }) {
                         <>
                             {/* Carrusel para los diferentes paises agregados  */}
                             < Splide
+                                ref={carruselRef}
                                 className="w-full"
                                 options={{
                                     arrows: false,
                                     pagination: false,
                                 }}
+                                onMove={(splide) => setActiveSlide(splide.index)}
                             >
 
                                 {
                                     ciudadesValidas.map((c) => (
                                         <SplideSlide>
-                                            <InformacionClima clima={c.estadoAtmosferico}></InformacionClima>
+                                            <InformacionClima icono={iconoClima[c?.estadoAtmosferico.weather[0].main]} clima={c.estadoAtmosferico}></InformacionClima>
 
                                             {/* Botones con tiempo atmosférico */}
                                             <div className="mt-4 grid grid-cols-2 justify-center gap-2" >
@@ -101,8 +126,8 @@ function Card({ ciudadesActuales }) {
 
                             <div className="flex mt-5 gap-2 text-white w-full justify-center">
                                 {
-                                    Array.from({ length: totalPagination }).map(() => (
-                                        <div className="bg-gray-500 w-4 h-4 rounded-3xl border border-gray-600 hover:bg-white transition cursor-pointer" />
+                                    Array.from({ length: totalPagination }).map((_, index) => (
+                                        <div onClick={() => goTo(index)} className={`w-4 h-4 rounded-3xl border hover:bg-white transition border-gray-600 cursor-pointer ${activeSlide == index ? 'bg-white' : 'bg-gray-600'} `} />
                                     ))
                                 }
 

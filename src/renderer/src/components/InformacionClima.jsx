@@ -1,4 +1,4 @@
-function InformacionClima({ clima }) {
+function InformacionClima({ clima, icono }) {
 
     return (
         /* Contenedor principal */
@@ -16,7 +16,7 @@ function InformacionClima({ clima }) {
             </div >
 
             {/* Imagen de Clima */}
-            < img className="size-23 drop-shadow-xl " src={'public/sun.png'} alt="_" />
+            < img className="size-23 drop-shadow-xl animate-pulse" src={`public/${icono}.png`} alt="_" />
         </div >
     );
 
