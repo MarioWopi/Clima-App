@@ -2,12 +2,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './assets/main.css'
 import PantallaPrincipal from './components/PantallaPrincipal'
 import AnadirCiudad from './components/AnadirCiudad'
+import { useState } from 'react'
 
 function App() {
   const ipcHandle = () => window.electron.ipcRenderer.send('ping')
 
   const cerrarVentana = () => { window.electron.ipcRenderer.send('accion', 'cerrar-ventana') }
   const minimizarVentana = () => { window.electron.ipcRenderer.send('accion', 'minimizar-ventana') }
+
+  const [ciudadesActuales, setCiudadesActuales] = useState([]);
 
   return (
     <>
@@ -18,9 +21,9 @@ function App() {
       </div>
       <BrowserRouter>
         <Routes>
-          <Route index element={<PantallaPrincipal />} />
+          <Route index element={<PantallaPrincipal ciudadesActuales={ciudadesActuales} setCiudadesActuales={setCiudadesActuales} />} />
 
-          <Route path='anadirCiudad' element={<AnadirCiudad />} />
+          <Route path='anadirCiudad' element={<AnadirCiudad ciudadesActuales={ciudadesActuales} setCiudadesActuales={setCiudadesActuales} />} />
 
         </Routes>
       </BrowserRouter>

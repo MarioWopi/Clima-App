@@ -11,7 +11,7 @@ function InformacionClima({ clima }) {
 
                 <div className="flex gap-2">
                     <p className="text-sm">{clima.weather[0].main}</p>
-                    <p className="text-sm">{Math.round(clima.main.temp_max)}ºC / {Math.round(clima.main.temp_min)}ºC</p>
+                    <p className="text-sm">{Math.round(clima.main.temp_min)}ºC / {Math.round(clima.main.temp_max)}ºC</p>
                 </div>
             </div >
 

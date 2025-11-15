@@ -1,26 +1,51 @@
 import { useEffect, useState } from "react";
 
-export default function useClima(ciudad = "Barcelona") {
 
-    const [clima, setClima] = useState(null);
-    const [error, setError] = useState(null);
+async function fetchClima(provincia = "") {
 
-    useEffect(() => {
-        async function getClima() {
-            const api_key = import.meta.env.VITE_WEATHER_API_KEY;
-            try {
-                let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&units=metric&appid=${api_key}`);
-                setClima(await response.json());
-            } catch (err) {
-                setError(err.message)
-            }
+
+    const api_key = import.meta.env.VITE_WEATHER_API_KEY;
+    try {
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${provincia.name},${provincia.country}&units=metric&appid=${api_key}`);
+        const clima = await response.json();
+
+        if (!response.ok) {
+            throw new Error(`Error de api: ${response.status}`);
         }
 
-        getClima();
-    }, [ciudad]);
+        return {
+            nombre: provincia.name,
+            pais: provincia.country,
+            estadoAtmosferico: clima
+        }
+    } catch (err) {
+        return {
+            nombre: provincia.name,
+            pais: provincia.country,
+            error: err.message
+        }
+    }
 
+}
 
-    return { clima, error };
+export default function useClima(arrayCiudades) {
+
+    const [estadoGeoAtmosferico, setEstadoGeoAtmosferico] = useState([]);
+
+    useEffect(() => {
+
+        if (!arrayCiudades || arrayCiudades?.length === 0) return;
+
+        async function cargarClimas() {
+            const resultados = await Promise.all(arrayCiudades?.map((ciudad) => fetchClima(ciudad)));
+            setEstadoGeoAtmosferico(resultados)
+        }
+
+        cargarClimas();
+    }, [arrayCiudades]);
+
+    console.log(estadoGeoAtmosferico)
+    return estadoGeoAtmosferico;
 
 }
 

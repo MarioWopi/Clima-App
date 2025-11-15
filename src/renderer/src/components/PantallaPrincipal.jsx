@@ -2,7 +2,7 @@ import { motion } from 'motion/react'
 import Card from './Card';
 
 
-function PantallaPrincipal() {
+function PantallaPrincipal({ ciudadesActuales, setCiudadesActuales }) {
 
     return (
         //Fondo
@@ -58,10 +58,7 @@ function PantallaPrincipal() {
             </motion.div>
 
             {/* Carta con la información del clima */}
-            <Card></Card>
-
-
-
+            <Card ciudadesActuales={ciudadesActuales} setCiudadesActuales={setCiudadesActuales} />
         </div >
     );
 

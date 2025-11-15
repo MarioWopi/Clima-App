@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CiudadesActuales from "./CiudadesActuales";
 import BuscadorCiudades from "./BuscadorCiudades";
+import useClima from "./hooks/useClima";
 
-function AnadirCiudad() {
+function AnadirCiudad({ciudadesActuales, setCiudadesActuales}) {
     const navigate = useNavigate();
+    const getClima = useClima(ciudadesActuales);
 
-    const [ciudadesActuales, setCiudadesActuales] = useState([]);
+    console.log(ciudadesActuales);
+
 
     return (
         <div className="bg-[linear-gradient(to_top,#9AA9B7_12%,#98B7CF_100%)] w-screen h-screen flex flex-col p-5 shadow-[inset_0_4px_6px_rgba(0,0,0,0.3)]">
