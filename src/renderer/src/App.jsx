@@ -3,6 +3,7 @@ import './assets/main.css'
 import PantallaPrincipal from './components/PantallaPrincipal'
 import AnadirCiudad from './components/AnadirCiudad'
 import { useState } from 'react'
+import InfoViento from './components/infoViento'
 
 function App() {
   const ipcHandle = () => window.electron.ipcRenderer.send('ping')
@@ -24,6 +25,7 @@ function App() {
           <Route index element={<PantallaPrincipal ciudadesActuales={ciudadesActuales} setCiudadesActuales={setCiudadesActuales} />} />
 
           <Route path='anadirCiudad' element={<AnadirCiudad ciudadesActuales={ciudadesActuales} setCiudadesActuales={setCiudadesActuales} />} />
+          <Route path='infoViento' element={<InfoViento ciudadesActuales={ciudadesActuales} />} />
 
         </Routes>
       </BrowserRouter>

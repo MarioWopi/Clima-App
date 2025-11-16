@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import BotonesClima from "./BotonesClima";
 import InformacionClima from "./InformacionClima";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import useHora from "./hooks/useHora";
 import useClima from "./hooks/useClima";
 
-function Card({ ciudadesActuales }) {
+function Card({ ciudadesActuales, indexCiudad }) {
+    console.log(indexCiudad);
 
     const navigate = useNavigate();
     const hora = useHora();
@@ -17,13 +18,19 @@ function Card({ ciudadesActuales }) {
     const totalPagination = Math.min(ciudadesValidas.length, 3)
 
     const carruselRef = useRef(null);
-    const [activeSlide, setActiveSlide] = useState(0);
+    const [activeSlide, setActiveSlide] = useState(indexCiudad || 0);
 
 
     const goTo = (index) => carruselRef.current?.splide.go(index);
 
     const anadirCiudad = () => {
         navigate("anadirCiudad");
+    }
+
+    const paginaInfoViento = () => {
+        console.log("entra");
+
+        navigate("infoViento");
     }
 
     const iconoClima = {
@@ -99,6 +106,7 @@ function Card({ ciudadesActuales }) {
                                 ref={carruselRef}
                                 className="w-full"
                                 options={{
+                                    start: indexCiudad || 0,
                                     arrows: false,
                                     pagination: false,
                                 }}
@@ -112,10 +120,10 @@ function Card({ ciudadesActuales }) {
 
                                             {/* Botones con tiempo atmosférico */}
                                             <div className="mt-4 grid grid-cols-2 justify-center gap-2" >
-                                                <BotonesClima texto={`${c.estadoAtmosferico.wind.speed} m/s`} icono="wind"></BotonesClima>
-                                                <BotonesClima texto={`${c.estadoAtmosferico.wind.speed} error`} icono="uv"></BotonesClima>
-                                                <BotonesClima texto={`${c.estadoAtmosferico.main.humidity}%`} icono="humidity"></BotonesClima>
-                                                <BotonesClima texto={`${Math.round(c.estadoAtmosferico.main.feels_like)}ºC`} icono="temperatura"></BotonesClima>
+                                                <div onClick={paginaInfoViento}><BotonesClima texto={`${c.estadoAtmosferico.wind.speed} m/s`} icono="wind" /></div>
+                                                <div onClick={paginaInfoViento}> <BotonesClima texto={`${c.estadoAtmosferico.wind.speed} error`} icono="uv" /></div>
+                                                <div onClick={paginaInfoViento}><BotonesClima texto={`${c.estadoAtmosferico.main.humidity}%`} icono="humidity" /></div>
+                                                <div onClick={paginaInfoViento}><BotonesClima texto={`${Math.round(c.estadoAtmosferico.main.feels_like)}ºC`} icono="temperatura" /></div>
                                             </div>
                                         </SplideSlide>
                                     ))

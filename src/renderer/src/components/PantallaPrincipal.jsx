@@ -1,9 +1,12 @@
 import { motion } from 'motion/react'
 import Card from './Card';
+import { useLocation } from 'react-router-dom';
 
 
 function PantallaPrincipal({ ciudadesActuales, setCiudadesActuales }) {
 
+    const { state } = useLocation();
+    
     return (
         //Fondo
         <div className="dia z-0" >
@@ -58,7 +61,7 @@ function PantallaPrincipal({ ciudadesActuales, setCiudadesActuales }) {
             </motion.div>
 
             {/* Carta con la información del clima */}
-            <Card ciudadesActuales={ciudadesActuales} setCiudadesActuales={setCiudadesActuales} />
+            <Card indexCiudad={state?.indexCiudad ?? null} ciudadesActuales={ciudadesActuales} setCiudadesActuales={setCiudadesActuales} />
         </div >
     );
 
