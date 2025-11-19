@@ -109,6 +109,7 @@ function Card({ ciudadesActuales, indexCiudad }) {
                                     start: indexCiudad || 0,
                                     arrows: false,
                                     pagination: false,
+                                    gap: "5rem"
                                 }}
                                 onMove={(splide) => setActiveSlide(splide.index)}
                             >

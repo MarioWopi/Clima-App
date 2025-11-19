@@ -34,7 +34,7 @@ export default function BuscadorCiudades({ setCiudadesActuales }) {
             <input
                 type="search"
                 id="default-search"
-                className="block w-full p-3 pl-10 text-sm shadow-sm text-gray-900 border border-[#9AA9B7] rounded-lg bg-gray-50 focus:ring-blue-400 focus:border-blue-400 transition"
+                className="block w-full p-3 pl-10 text-sm shadow-sm placeholder-gray-500 text-gray-900 border border-[#9AA9B7] rounded-lg bg-gray-50 focus:ring-blue-400 focus:border-blue-400 transition"
                 placeholder="Barcelona..."
                 onFocus={() => setMostrarLista(true)}
                 onBlur={() => setMostrarLista(false)}

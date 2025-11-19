@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Gochi+Hand&display=swap');
-@import "tailwindcss";
 @import '@splidejs/react-splide/css';
+@import "tailwindcss";
 @import 'flowbite';
 
 
@@ -92,5 +92,14 @@ body {
 }
 
 ul::-webkit-scrollbar {
+  display: none; 
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+.hide-scrollbar::-webkit-scrollbar {
   display: none; 
 }
