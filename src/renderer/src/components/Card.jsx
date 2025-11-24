@@ -27,10 +27,8 @@ function Card({ ciudadesActuales, indexCiudad }) {
         navigate("anadirCiudad");
     }
 
-    const paginaInfoViento = () => {
-        console.log("entra");
-
-        navigate("infoViento");
+    const paginaInfoViento = (velocidadViento) => {
+        navigate("infoViento", { state: { "velocidadViento": velocidadViento } });
     }
 
     const iconoClima = {
@@ -121,7 +119,7 @@ function Card({ ciudadesActuales, indexCiudad }) {
 
                                             {/* Botones con tiempo atmosférico */}
                                             <div className="mt-4 grid grid-cols-2 justify-center gap-2" >
-                                                <div onClick={paginaInfoViento}><BotonesClima texto={`${c.estadoAtmosferico.wind.speed} m/s`} icono="wind" /></div>
+                                                <div onClick={() => paginaInfoViento(c.estadoAtmosferico.wind.speed)}><BotonesClima texto={`${c.estadoAtmosferico.wind.speed} m/s`} icono="wind" /></div>
                                                 <div onClick={paginaInfoViento}> <BotonesClima texto={`${c.estadoAtmosferico.wind.speed} error`} icono="uv" /></div>
                                                 <div onClick={paginaInfoViento}><BotonesClima texto={`${c.estadoAtmosferico.main.humidity}%`} icono="humidity" /></div>
                                                 <div onClick={paginaInfoViento}><BotonesClima texto={`${Math.round(c.estadoAtmosferico.main.feels_like)}ºC`} icono="temperatura" /></div>

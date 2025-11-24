@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 function PantallaPrincipal({ ciudadesActuales, setCiudadesActuales }) {
 
     const { state } = useLocation();
-    
+
     return (
         //Fondo
         <div className="dia z-0" >

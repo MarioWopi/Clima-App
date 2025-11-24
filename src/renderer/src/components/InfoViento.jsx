@@ -1,13 +1,120 @@
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 
-export default function InfoViento({ ciudadesActuales }) {
+export default function InfoViento() {
 
     const navigate = useNavigate();
+
+
+    const location = useLocation();
+    const { velocidadViento } = location.state;
+
+    const matchRange = (vVientoTabla, vVientoCiudad) => {
+
+        if (vVientoTabla.includes("<")) {
+            return vVientoCiudad < parseInt(vVientoTabla.replace("<", "").trim());
+        }
+        if (vVientoTabla.includes("-")) {
+            const [min, max] = vVientoTabla.split("-").map(v => parseInt(v.trim()));
+            return vVientoCiudad >= min && vVientoCiudad <= max;
+        }
+
+    }
 
     const atras = () => {
         navigate(-1);
     }
+
+    const vientoData = [
+        {
+            "numero_beaufort": 0,
+            "velocidad_kmh": "< 1",
+            "descripcion": "Calma",
+            "efectos_tierra": "Calma. El humo sube verticalmente."
+        },
+        {
+            "numero_beaufort": 1,
+            "velocidad_kmh": "1 - 5",
+            "descripcion": "Aire Ligero",
+            "efectos_tierra": "Movimiento del viento visible en humo."
+        },
+        {
+            "numero_beaufort": 2,
+            "velocidad_kmh": "6 - 11",
+            "descripcion": "Brisa Ligera",
+            "efectos_tierra": "Viento sentido en piel expuesta. Las hojas crujen."
+        },
+        {
+            "numero_beaufort": 3,
+            "velocidad_kmh": "12 - 19",
+            "descripcion": "Brisa Gentil",
+            "efectos_tierra": "Hojas y ramitas más pequeñas en movimiento constante."
+        },
+        {
+            "numero_beaufort": 4,
+            "velocidad_kmh": "20 - 28",
+            "descripcion": "Brisa Moderada",
+            "efectos_tierra": "Polvo y hojas de papel se levantan. Ramas pequeñas empiezan a moverse."
+        },
+        {
+            "numero_beaufort": 5,
+            "velocidad_kmh": "29 - 38",
+            "descripcion": "Brisa Firme",
+            "efectos_tierra": "Ramas pequeñas comienzan a oscilar."
+        },
+        {
+            "numero_beaufort": 6,
+            "velocidad_kmh": "39 - 49",
+            "descripcion": "Brisa Fuerte",
+            "efectos_tierra": "Grandes ramas están en movimiento. Silbidos en el viento. Difícil usar paraguas."
+        },
+        {
+            "numero_beaufort": 7,
+            "velocidad_kmh": "50 - 61",
+            "descripcion": "Cerca de un Vendabal",
+            "efectos_tierra": "Árboles en movimiento. Alguna dificultad caminando."
+        },
+        {
+            "numero_beaufort": 8,
+            "velocidad_kmh": "62 - 74",
+            "descripcion": "Vendaval",
+            "efectos_tierra": "Ramitas y ramas pequeñas se rompen. Autos moviéndose con dificultad."
+        },
+        {
+            "numero_beaufort": 9,
+            "velocidad_kmh": "75 - 88",
+            "descripcion": "Vendaval fuerte",
+            "efectos_tierra": "Ramas grandes se rompen. Daños estructurales leves."
+        },
+        {
+            "numero_beaufort": 10,
+            "velocidad_kmh": "89 - 102",
+            "descripcion": "Tormenta",
+            "efectos_tierra": "Arboles rotos y derribados. Daños estructurales considerables."
+        },
+        {
+            "numero_beaufort": 11,
+            "velocidad_kmh": "103 - 117",
+            "descripcion": "Tormenta Violenta",
+            "efectos_tierra": "Daños generalizados a estructuras y vegetación."
+        },
+    ];
+    const colors = {
+        0: "bg-cyan-100",
+        1: "bg-sky-200",
+        2: "bg-sky-300",
+        3: "bg-lime-200",
+        4: "bg-lime-300",
+        5: "bg-yellow-200",
+        6: "bg-yellow-300",
+        7: "bg-amber-200",
+        8: "bg-amber-300",
+        9: "bg-orange-300",
+        10: "bg-red-400 text-white",
+        11: "bg-red-500 text-white",
+        12: "bg-red-600 text-white",
+    };
+
 
     return (
         <div className="flex flex-col items-center w-screen h-screen hide-scrollbar overflow-y-auto pb-10 text-center z-1 bg-linear-to-b from-[rgba(126,206,255)] to-[rgba(255,255,255)] backdrop-blur-sm border border-[#261D1D]/14">
@@ -23,103 +130,22 @@ export default function InfoViento({ ciudadesActuales }) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className="bg-cyan-100 border border-gray-300  ">
-                            <td className="px-2 py-1 border border-gray-300 text-center">0</td>
-                            <td className="px-2 py-1 border border-gray-300 text-center">{'< 1'}</td>
-                            <td className="px-2 py-1 border border-gray-300">Calma</td>
-                            <td className="px-2 py-1 border border-gray-300">Calma. El humo sube verticalmente.</td>
-                        </tr>
-                        <tr className="bg-sky-200 border border-gray-300">
-                            <td className="px-2 py-1 border border-gray-300 text-center">1</td>
-                            <td className="px-2 py-1 border border-gray-300 text-center">1 - 5</td>
-                            <td className="px-2 py-1 border border-gray-300">Aire Ligero</td>
-                            <td className="px-2 py-1 border border-gray-300">Movimiento del viento visible en humo.</td>
-                        </tr>
-                        <tr className="bg-sky-300 border border-gray-300 ">
-                            <td className="px-2 py-1 border border-gray-300 text-center">2</td>
-                            <td className="px-2 py-1 border border-gray-300 text-center">6 - 11</td>
-                            <td className="px-2 py-1 border border-gray-300">Brisa Ligera</td>
-                            <td className="px-2 py-1 border border-gray-300">Viento sentido en piel expuesta. Las hojas crujen.</td>
-                        </tr>
-                        <tr className="bg-lime-200 border border-gray-300">
-                            <td className="px-2 py-1 border border-gray-300 text-center">3</td>
-                            <td className="px-2 py-1 border border-gray-300 text-center">12 - 19</td>
-                            <td className="px-2 py-1 border border-gray-300">Brisa Gentil</td>
-                            <td className="px-2 py-1 border border-gray-300">
-                                Hojas y ramitas más pequeñas en movimiento constante.
-                            </td>
-                        </tr>
-                        <tr className="bg-lime-300 border border-gray-300">
-                            <td className="px-2 py-1 border border-gray-300 text-center">4</td>
-                            <td className="px-2 py-1 border border-gray-300 text-center">20 - 28</td>
-                            <td className="px-2 py-1 border border-gray-300">Brisa Moderada</td>
-                            <td className="px-2 py-1 border border-gray-300">
-                                Polvo y hojas de papel se levantan. Ramas pequeñas empiezan a moverse.
-                            </td>
-                        </tr>
-                        <tr className="bg-yellow-200 border border-gray-300 ">
-                            <td className="px-2 py-1 border border-gray-300 text-center">5</td>
-                            <td className="px-2 py-1 border border-gray-300 text-center">29 - 38</td>
-                            <td className="px-2 py-1 border border-gray-300">Brisa Firme</td>
-                            <td className="px-2 py-1 border border-gray-300">Ramas pequeñas comienzan a oscilar.</td>
-                        </tr>
-                        <tr className="bg-yellow-300 border border-gray-300">
-                            <td className="px-2 py-1 border border-gray-300 text-center">6</td>
-                            <td className="px-2 py-1 border border-gray-300 text-center">39 - 49</td>
-                            <td className="px-2 py-1 border border-gray-300">Brisa Fuerte</td>
-                            <td className="px-2 py-1 border border-gray-300">
-                                Grandes ramas están en movimiento. Silbidos en el viento. Difícil usar paraguas.
-                            </td>
-                        </tr>
-                        <tr  className="bg-amber-200 border border-gray-300 animate-bounce ">
-                            <td className="px-2 py-1 border border-gray-300 text-center">7</td>
-                            <td className="px-2 py-1 border border-gray-300 text-center">50 - 61</td>
-                            <td className="px-2 py-1 border border-gray-300">Cerca de un Vendabal</td>
-                            <td className="px-2 py-1 border border-gray-300">
-                                Árboles en movimiento. Alguna dificultad caminando.
-                            </td>
-                        </tr>
-                        <tr className="bg-amber-300 border border-gray-300">
-                            <td className="px-2 py-1 border border-gray-300 text-center">8</td>
-                            <td className="px-2 py-1 border border-gray-300 text-center">62 - 74</td>
-                            <td className="px-2 py-1 border border-gray-300">Vendaval</td>
-                            <td className="px-2 py-1 border border-gray-300">
-                                Ramitas y ramas pequeñas se rompen. Autos moviéndose con dificultad.
-                            </td>
-                        </tr>
-                        <tr className="bg-orange-300 border border-gray-300">
-                            <td className="px-2 py-1 border border-gray-300 text-center">9</td>
-                            <td className="px-2 py-1 border border-gray-300 text-center">75 - 88</td>
-                            <td className="px-2 py-1 border border-gray-300">Vendaval fuerte</td>
-                            <td className="px-2 py-1 border border-gray-300">
-                                Ramas grandes se rompen. Daños estructurales leves.
-                            </td>
-                        </tr>
-                        <tr className="bg-red-400 border border-gray-300 text-white">
-                            <td className="px-2 py-1 border border-gray-300 text-center">10</td>
-                            <td className="px-2 py-1 border border-gray-300 text-center">89 - 102</td>
-                            <td className="px-2 py-1 border border-gray-300">Tormenta</td>
-                            <td className="px-2 py-1 border border-gray-300">
-                                Árboles rotos y derribados. Daños estructurales considerables.
-                            </td>
-                        </tr>
-                        <tr className="bg-red-500 border border-gray-300 text-white">
-                            <td className="px-2 py-1 border border-gray-300 text-center">11</td>
-                            <td className="px-2 py-1 border border-gray-300 text-center">103 - 117</td>
-                            <td className="px-2 py-1 border border-gray-300">Tormenta Violenta</td>
-                            <td className="px-2 py-1 border border-gray-300">
-                                Daños generalizados a estructuras y vegetación.
-                            </td>
-                        </tr>
-                        <tr className="bg-red-600 border border-gray-300 text-white">
-                            <td className="px-2 py-1 border border-gray-300 text-center">12</td>
-                            <td className="px-2 py-1 border border-gray-300 text-center">{'> 117'}</td>
+                        {
+                            vientoData.map((data, index) => {
 
-                            <td className="px-2 py-1 border border-gray-300">Huracán</td>
-                            <td className="px-2 py-1 border border-gray-300">
-                                Daños considerables y generalizados a estructuras y vegetación. Violencia.
-                            </td>
-                        </tr>
+                                const isMatch = matchRange(data.velocidad_kmh, velocidadViento);
+                                return (
+                                    <tr className={`${colors[index]} ${isMatch && 'animate-bounce'}  border-gray-300`}>
+                                        <td className="px-2 py-1 border border-gray-300 text-center">{data.numero_beaufort}</td>
+                                        <td className="px-2 py-1 border border-gray-300 text-center">{data.velocidad_kmh}</td>
+                                        <td className="px-2 py-1 border border-gray-300">{data.descripcion}</td>
+                                        <td className="px-2 py-1 border border-gray-300">
+                                            {data.efectos_tierra}
+                                        </td>
+                                    </tr>)
+                            })
+                        }
+
                     </tbody>
                 </table>
             </div>
@@ -129,6 +155,6 @@ export default function InfoViento({ ciudadesActuales }) {
             >
                 Volver
             </button>
-        </div>
+        </div >
     );
 }
