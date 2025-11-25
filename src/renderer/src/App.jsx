@@ -23,7 +23,7 @@ function App() {
       <div className='pt-10'>
         <BrowserRouter>
           <Routes>
-            <Route index element={<PantallaPrincipal ciudadesActuales={ciudadesActuales} setCiudadesActuales={setCiudadesActuales} />} />
+            <Route index element={<PantallaPrincipal ciudadesActuales={ciudadesActuales} />} />
 
             <Route path='anadirCiudad' element={<AnadirCiudad ciudadesActuales={ciudadesActuales} setCiudadesActuales={setCiudadesActuales} />} />
             <Route path='infoViento' element={<InfoViento ciudadesActuales={ciudadesActuales} />} />

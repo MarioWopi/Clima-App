@@ -3,7 +3,7 @@ import Card from './Card';
 import { useLocation } from 'react-router-dom';
 
 
-function PantallaPrincipal({ ciudadesActuales, setCiudadesActuales }) {
+function PantallaPrincipal({ ciudadesActuales }) {
 
     const { state } = useLocation();
 
@@ -61,7 +61,7 @@ function PantallaPrincipal({ ciudadesActuales, setCiudadesActuales }) {
             </motion.div>
 
             {/* Carta con la información del clima */}
-            <Card indexCiudad={state?.indexCiudad ?? null} ciudadesActuales={ciudadesActuales} setCiudadesActuales={setCiudadesActuales} />
+            <Card ciudadesActuales={ciudadesActuales} />
         </div >
     );
 

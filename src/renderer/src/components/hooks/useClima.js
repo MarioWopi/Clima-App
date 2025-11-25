@@ -3,12 +3,25 @@ import { useEffect, useRef, useState } from "react";
 async function fetchClima(provincia = "") {
     const api_key = import.meta.env.VITE_WEATHER_API_KEY;
     try {
-        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${provincia.name},${provincia.country}&units=metric&appid=${api_key}`);
-        const clima = await response.json();
 
-        if (!response.ok) {
-            throw new Error(`Error de api: ${response.status}`);
+        //Api para obtener datos del estado atmosférico
+        const climaResp = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${provincia.name},${provincia.country}&units=metric&appid=${api_key}`);
+        const clima = await climaResp.json();
+
+        if (!climaResp.ok) {
+            throw new Error(`Error de api: ${climaResp.status}`);
         }
+
+        //Api para obtener datos del índice UV
+        const uvResp = await fetch(`https://currentuvindex.com/api/v1/uvi?latitude=${clima.coord.lat}&longitude=${clima.coord.lon}`)
+        const uvData = await uvResp.json();
+
+        if (!uvResp.ok) {
+            throw new Error(`Error de api UV: ${uvResp.status}`);
+        }
+
+        //Añadimos el índice UV al objeto clima
+        clima.uvIndex = uvData.now.uvi;
 
         return {
             nombre: provincia.name,
@@ -24,6 +37,7 @@ async function fetchClima(provincia = "") {
     }
 }
 
+
 function arraysIguales(a, b) {
     if (!a || !b) return false;
     if (a.length !== b.length) return false;
@@ -33,7 +47,7 @@ function arraysIguales(a, b) {
     return true;
 }
 
-export default function useClima(arrayCiudades) {
+export default function useCalima(arrayCiudades) {
     const [estadoGeoAtmosferico, setEstadoGeoAtmosferico] = useState([]);
     const prevCiudadesRef = useRef([]);
 

@@ -44,8 +44,8 @@ export default function BuscadorCiudades({ setCiudadesActuales }) {
             {/* DropDown */}
             {mostrarLista && ciudadValue && (
                 <ul className=" absolute w-full max-h-60 overflow-y-auto scroll-no bg-white border border-[#9AA9B7] rounded-sm transition">
-                    {getCiudad?.map((ciudad) => (
-                        <div>
+                    {getCiudad?.map((ciudad, index) => (
+                        <div key={index}>
                             <li onMouseDown={() => agregarCiudad(ciudad)} className="w-full p-3 text-sm text-gray-900 hover:bg-[#E6F4FF]  cursor-pointer ">
                                 <p className="text-lg font-semibold text-gray-800">{ciudad.name}</p>
                                 <p className="text-sm text-gray-500">{ciudad.country} - {ciudad.state}</p>

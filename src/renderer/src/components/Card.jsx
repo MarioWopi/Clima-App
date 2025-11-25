@@ -1,25 +1,25 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import BotonesClima from "./BotonesClima";
 import InformacionClima from "./InformacionClima";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { useNavigate } from "react-router-dom";
 import useHora from "./hooks/useHora";
 import useClima from "./hooks/useClima";
+import { useSlideStore } from "./hooks/useSlideStore";
 
-function Card({ ciudadesActuales, indexCiudad }) {
-    console.log(indexCiudad);
+function Card({ ciudadesActuales }) {
 
     const navigate = useNavigate();
     const hora = useHora();
     const datosClima = useClima(ciudadesActuales);
+    const { currentSlide, setCurrentSlide } = useSlideStore();
+
     const ciudadesValidas = datosClima.filter(c => !c.error)
     const ciudadesNoValidas = datosClima.filter(c => c.error)
     // console.log("Array Ciudades ->" + JSON.stringify(datosClima)) //Arreglar porque se me ejecuta infinitamente
     const totalPagination = Math.min(ciudadesValidas.length, 3)
 
     const carruselRef = useRef(null);
-    const [activeSlide, setActiveSlide] = useState(indexCiudad || 0);
-
 
     const goTo = (index) => carruselRef.current?.splide.go(index);
 
@@ -27,27 +27,33 @@ function Card({ ciudadesActuales, indexCiudad }) {
         navigate("anadirCiudad");
     }
 
+
+
     const paginaInfoViento = (velocidadViento) => {
         navigate("infoViento", { state: { "velocidadViento": velocidadViento } });
     }
 
-    const iconoClima = {
-        "Thunderstorm": "thunderstorm",
-        "Drizzle": "rain",
-        "Rain": "rain",
-        "Snow": "snow",
-        "Mist": "fog",
-        "Smoke": "fog",
-        "Haze": "fog",
-        "Dust": "fog",
-        "Fog": "fog",
-        "Sand": "fog",
-        "Ash": "fog",
-        "Squall": "rain",
-        "Tornado": "rain",
-        "Clear": "sun",
-        "Clouds": "cloudy",
-    }
+    const climaInfo = {
+        Thunderstorm: { icon: "thunderstorm", es: "Tormenta eléctrica" },
+        Drizzle: { icon: "rain", es: "Llovizna" },
+        Rain: { icon: "rain", es: "Lluvia" },
+        Snow: { icon: "snow", es: "Nieve" },
+        Mist: { icon: "fog", es: "Neblina" },
+        Smoke: { icon: "fog", es: "Humo" },
+        Haze: { icon: "fog", es: "Neblina" },
+        Dust: { icon: "fog", es: "Polvo" },
+        Fog: { icon: "fog", es: "Niebla" },
+        Sand: { icon: "fog", es: "Arena" },
+        Ash: { icon: "fog", es: "Ceniza" },
+        Squall: { icon: "rain", es: "Chubasco" },
+        Tornado: { icon: "rain", es: "Tornado" },
+        Clear: { icon: "sun", es: "Despejado" },
+        Clouds: { icon: "cloudy", es: "Nublado" },
+    };
+
+    // console.log(climaInfo[datosClima[0]?.estadoAtmosferico.weather[0].main]?.es);
+    // console.log(datosClima[0]?.estadoAtmosferico.weather[0].main);
+
 
     //Muestra una card de error, si la api de weather da algun tipo de error
     if (ciudadesNoValidas.length > 0) {
@@ -104,23 +110,28 @@ function Card({ ciudadesActuales, indexCiudad }) {
                                 ref={carruselRef}
                                 className="w-full"
                                 options={{
-                                    start: indexCiudad || 0,
+                                    start: currentSlide || 0,
                                     arrows: false,
                                     pagination: false,
                                     gap: "5rem"
                                 }}
-                                onMove={(splide) => setActiveSlide(splide.index)}
+                                onMove={(splide) => {
+                                    setCurrentSlide(splide.index)
+                                }}
                             >
 
                                 {
+
+
                                     ciudadesValidas.map((c) => (
-                                        <SplideSlide>
-                                            <InformacionClima icono={iconoClima[c?.estadoAtmosferico.weather[0].main]} clima={c.estadoAtmosferico}></InformacionClima>
+
+                                        < SplideSlide key={c.nombre} >
+                                            <InformacionClima icono={climaInfo[c?.estadoAtmosferico.weather[0].main].icon} datosClima={{ datosGenerales: c.estadoAtmosferico, estado: climaInfo[c.estadoAtmosferico.weather[0].main]?.es }}></InformacionClima>
 
                                             {/* Botones con tiempo atmosférico */}
-                                            <div className="mt-4 grid grid-cols-2 justify-center gap-2" >
+                                            < div className="mt-4 grid grid-cols-2 justify-center gap-2" >
                                                 <div onClick={() => paginaInfoViento(c.estadoAtmosferico.wind.speed)}><BotonesClima texto={`${c.estadoAtmosferico.wind.speed} m/s`} icono="wind" /></div>
-                                                <div onClick={paginaInfoViento}> <BotonesClima texto={`${c.estadoAtmosferico.wind.speed} error`} icono="uv" /></div>
+                                                <div onClick={paginaInfoViento}> <BotonesClima texto={`${c.estadoAtmosferico.uvIndex} UV`} icono="uv" /></div>
                                                 <div onClick={paginaInfoViento}><BotonesClima texto={`${c.estadoAtmosferico.main.humidity}%`} icono="humidity" /></div>
                                                 <div onClick={paginaInfoViento}><BotonesClima texto={`${Math.round(c.estadoAtmosferico.main.feels_like)}ºC`} icono="temperatura" /></div>
                                             </div>
@@ -134,7 +145,7 @@ function Card({ ciudadesActuales, indexCiudad }) {
                             <div className="flex mt-5 gap-2 text-white w-full justify-center">
                                 {
                                     Array.from({ length: totalPagination }).map((_, index) => (
-                                        <div onClick={() => goTo(index)} className={`w-4 h-4 rounded-3xl border hover:bg-white transition border-gray-600 cursor-pointer ${activeSlide == index ? 'bg-white' : 'bg-gray-600'} `} />
+                                        <div key={index} onClick={() => goTo(index)} className={`w-4 h-4 rounded-3xl border hover:bg-white transition border-gray-600 cursor-pointer ${currentSlide == index ? 'bg-white' : 'bg-gray-600'} `} />
                                     ))
                                 }
 
@@ -147,7 +158,7 @@ function Card({ ciudadesActuales, indexCiudad }) {
                     )}
 
 
-                </div>
+                </div >
 
                 {/* <div className="bg-amber-50/30 rounded-xl backdrop-blur-sm border border-amber-50/20 shadow-[#fdfdfe9c] shadow-2xl text-white py-5">
                 Card Secundaria pronostico 5 dias

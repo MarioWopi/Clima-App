@@ -135,7 +135,7 @@ export default function InfoViento() {
 
                                 const isMatch = matchRange(data.velocidad_kmh, velocidadViento);
                                 return (
-                                    <tr className={`${colors[index]} ${isMatch && 'animate-bounce'}  border-gray-300`}>
+                                    <tr key={index} className={`${colors[index]} ${isMatch && 'animate-bounce'}  border-gray-300`}>
                                         <td className="px-2 py-1 border border-gray-300 text-center">{data.numero_beaufort}</td>
                                         <td className="px-2 py-1 border border-gray-300 text-center">{data.velocidad_kmh}</td>
                                         <td className="px-2 py-1 border border-gray-300">{data.descripcion}</td>

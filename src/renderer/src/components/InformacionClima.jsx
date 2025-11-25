@@ -1,4 +1,4 @@
-function InformacionClima({ clima, icono }) {
+function InformacionClima({ datosClima, icono }) {
 
     return (
         /* Contenedor principal */
@@ -6,12 +6,12 @@ function InformacionClima({ clima, icono }) {
 
             {/* Información del clima */}
             < div className="flex flex-col" >
-                <h2 className="text-[36px] leading-none drop-shadow-md">{Math.round(clima.main.temp)}ºC</h2>
-                <h3 className="text-sm leading-none drop-shadow-md">{clima.name}</h3>
+                <h2 className="text-[36px] leading-none drop-shadow-md">{Math.round(datosClima.datosGenerales.main.temp)}ºC</h2>
+                <h3 className="text-sm leading-none drop-shadow-md">{datosClima.datosGenerales.name}</h3>
 
                 <div className="flex gap-2">
-                    <p className="text-sm">{clima.weather[0].main}</p>
-                    <p className="text-sm">{Math.round(clima.main.temp_min)}ºC / {Math.round(clima.main.temp_max)}ºC</p>
+                    <p className="text-sm">{datosClima.estado}</p>
+                    <p className="text-sm">{Math.round(datosClima.datosGenerales.main.temp_min)}ºC / {Math.round(datosClima.datosGenerales.main.temp_max)}ºC</p>
                 </div>
             </div >
 
