@@ -5,12 +5,15 @@ export default function InfoViento() {
 
     const navigate = useNavigate();
 
-
+    // Obtener la velocidad del viento desde el estado de la ubicación
     const location = useLocation();
     const { velocidadViento } = location.state;
 
     const matchRange = (vVientoTabla, vVientoCiudad) => {
+        //Convertimos la velocidad del viento de la ciudad a número entero
+        vVientoCiudad = parseInt(vVientoCiudad);
 
+        //Sanitizamos los datos de la tabla
         if (vVientoTabla.includes("<")) {
             return vVientoCiudad < parseInt(vVientoTabla.replace("<", "").trim());
         }
@@ -20,11 +23,11 @@ export default function InfoViento() {
         }
 
     }
-
+    //Función para volver a la página anterior
     const atras = () => {
         navigate(-1);
     }
-
+    //Datos de la tabla de viento según la escala de Beaufort
     const vientoData = [
         {
             "numero_beaufort": 0,
@@ -99,6 +102,7 @@ export default function InfoViento() {
             "efectos_tierra": "Daños generalizados a estructuras y vegetación."
         },
     ];
+    //Colores para cada fila de la tabla
     const colors = {
         0: "bg-cyan-100",
         1: "bg-sky-200",
@@ -121,7 +125,7 @@ export default function InfoViento() {
 
             <div className="relative w-full border border-gray-200 rounded mt-5 font-sans">
                 <table className="w-full text-xs sm:text-sm text-left text-gray-700">
-                    <thead className="bg-gray-100 sticky top-0 ">
+                    <thead className="bg-gray-100 sticky top-0 z-1 ">
                         <tr>
                             <th className="px-2 py-1 border border-gray-300">Número Beaufort</th>
                             <th className="px-2 py-1 border border-gray-300">Velocidad del Viento (km/h)</th>
@@ -135,7 +139,7 @@ export default function InfoViento() {
 
                                 const isMatch = matchRange(data.velocidad_kmh, velocidadViento);
                                 return (
-                                    <tr key={index} className={`${colors[index]} ${isMatch && 'animate-bounce'}  border-gray-300`}>
+                                    <tr key={index} className={`${colors[index]} ${isMatch && 'animate-bounce hover:animate-none hover:scale-105 transition ease-in-out'}  border-gray-300`}>
                                         <td className="px-2 py-1 border border-gray-300 text-center">{data.numero_beaufort}</td>
                                         <td className="px-2 py-1 border border-gray-300 text-center">{data.velocidad_kmh}</td>
                                         <td className="px-2 py-1 border border-gray-300">{data.descripcion}</td>

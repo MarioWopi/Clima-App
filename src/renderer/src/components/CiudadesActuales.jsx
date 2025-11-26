@@ -6,20 +6,25 @@ export default function CiudadesActuales({ ciudadesActuales, setCiudadesActuales
     const navigate = useNavigate();
     const { currentSlide, setCurrentSlide } = useSlideStore();
 
+    //Función que guarda el slide actual en una variable global y navega a la página principal
     const handleClick = (indexCiudad) => {
         setCurrentSlide(indexCiudad);
         navigate("/");
     }
 
-
+    //Función para eliminar una ciudad de la lista de ciudades actuales
     const eliminarCiudad = (ciudad, index) => {
-        if(index < currentSlide){
-            setCurrentSlide(currentSlide > 0 ? currentSlide -1 : 0);
+        //Ajustamos el slide actual si es necesario
+        if (index < currentSlide || index === currentSlide && currentSlide === ciudadesActuales.length - 1) {
+            setCurrentSlide(currentSlide > 0 ? currentSlide - 1 : 0);
         }
+        
+        //Eliminamos la ciudad del estado de ciudades actuales
         setCiudadesActuales(prev => prev.filter(c => c !== ciudad)); // También se puede hacer lo de abajo \ prev (se puede llamar como quiera) = es el anterior estado del ciudadesActuales
         //setCiudadesActuales(ciudadesActuales.filter(c => c !== ciudad));
     };
 
+    //Mensaje si no hay ciudades añadidas
     if (ciudadesActuales?.length === 0) {
         return (
             <p className="text-gray-500 text-center italic h-55 mt-5">

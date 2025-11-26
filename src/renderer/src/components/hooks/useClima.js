@@ -9,7 +9,7 @@ async function fetchClima(provincia = "") {
         const clima = await climaResp.json();
 
         if (!climaResp.ok) {
-            throw new Error(`Error de api: ${climaResp.status}`);
+            throw new Error(`Error de API clima ${climaResp.status}`);
         }
 
         //Api para obtener datos del índice UV
@@ -17,7 +17,7 @@ async function fetchClima(provincia = "") {
         const uvData = await uvResp.json();
 
         if (!uvResp.ok) {
-            throw new Error(`Error de api UV: ${uvResp.status}`);
+            throw new Error(`Error de API UV: ${uvResp.status}`);
         }
 
         //Añadimos el índice UV al objeto clima

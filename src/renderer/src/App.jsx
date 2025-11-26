@@ -4,6 +4,8 @@ import PantallaPrincipal from './components/PantallaPrincipal'
 import AnadirCiudad from './components/AnadirCiudad'
 import { useState } from 'react'
 import InfoViento from './components/InfoViento'
+import InfoUV from './components/InfoUV'
+import InfoHumedad from './components/InfoHumedad'
 
 function App() {
   const ipcHandle = () => window.electron.ipcRenderer.send('ping')
@@ -26,8 +28,9 @@ function App() {
             <Route index element={<PantallaPrincipal ciudadesActuales={ciudadesActuales} />} />
 
             <Route path='anadirCiudad' element={<AnadirCiudad ciudadesActuales={ciudadesActuales} setCiudadesActuales={setCiudadesActuales} />} />
-            <Route path='infoViento' element={<InfoViento ciudadesActuales={ciudadesActuales} />} />
-
+            <Route path='infoViento' element={<InfoViento />} />
+            <Route path='infoUV' element={<InfoUV />} />
+            <Route path='infoHumedad' element={<InfoHumedad />} />
           </Routes>
         </BrowserRouter>
       </div>

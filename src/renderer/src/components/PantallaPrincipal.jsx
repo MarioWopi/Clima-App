@@ -1,11 +1,8 @@
 import { motion } from 'motion/react'
 import Card from './Card';
-import { useLocation } from 'react-router-dom';
 
 
 function PantallaPrincipal({ ciudadesActuales }) {
-
-    const { state } = useLocation();
 
     return (
         //Fondo

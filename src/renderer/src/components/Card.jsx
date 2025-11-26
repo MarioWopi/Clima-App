@@ -27,12 +27,26 @@ function Card({ ciudadesActuales }) {
         navigate("anadirCiudad");
     }
 
+    //Función para navegar a la página de información del viento con la velocidad del viento como estado
+    const navegarA = (localizacion, data) => {
 
+        switch (localizacion) {
+            case "infoViento":
+                navigate("infoViento", { state: { "velocidadViento": data } });
+                break;
+            case "infoUV":
+                navigate("infoUV", { state: { "uv": data } });
+                break;
+            case "infoHumedad":
+                navigate("infoHumedad", { state: { "humedad": data } });
+                break;
+            default:
+                break;
+        }
 
-    const paginaInfoViento = (velocidadViento) => {
-        navigate("infoViento", { state: { "velocidadViento": velocidadViento } });
     }
 
+    //Mapa de iconos y descripciones en español
     const climaInfo = {
         Thunderstorm: { icon: "thunderstorm", es: "Tormenta eléctrica" },
         Drizzle: { icon: "rain", es: "Llovizna" },
@@ -130,10 +144,10 @@ function Card({ ciudadesActuales }) {
 
                                             {/* Botones con tiempo atmosférico */}
                                             < div className="mt-4 grid grid-cols-2 justify-center gap-2" >
-                                                <div onClick={() => paginaInfoViento(c.estadoAtmosferico.wind.speed)}><BotonesClima texto={`${c.estadoAtmosferico.wind.speed} m/s`} icono="wind" /></div>
-                                                <div onClick={paginaInfoViento}> <BotonesClima texto={`${c.estadoAtmosferico.uvIndex} UV`} icono="uv" /></div>
-                                                <div onClick={paginaInfoViento}><BotonesClima texto={`${c.estadoAtmosferico.main.humidity}%`} icono="humidity" /></div>
-                                                <div onClick={paginaInfoViento}><BotonesClima texto={`${Math.round(c.estadoAtmosferico.main.feels_like)}ºC`} icono="temperatura" /></div>
+                                                <div onClick={() => navegarA("infoViento", c.estadoAtmosferico.wind.speed)}><BotonesClima texto={`${c.estadoAtmosferico.wind.speed} m/s`} icono="wind" /></div>
+                                                <div onClick={() => navegarA("infoUV", c.estadoAtmosferico.uvIndex)}> <BotonesClima texto={`${c.estadoAtmosferico.uvIndex} UV`} icono="uv" /></div>
+                                                <div onClick={() => navegarA("infoHumedad", c.estadoAtmosferico.main.humidity)}><BotonesClima texto={`${c.estadoAtmosferico.main.humidity}%`} icono="humidity" /></div>
+                                                <div ><BotonesClima texto={`${Math.round(c.estadoAtmosferico.main.feels_like)}ºC`} icono="temperatura" /></div>
                                             </div>
                                         </SplideSlide>
                                     ))
